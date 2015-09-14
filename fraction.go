@@ -9,28 +9,32 @@ type Fraction struct {
 	denominator int
 }
 
+// This method operates on a struct instance and modifies it attempting to
+// put it in to a simpler/reduced form
 func (self *Fraction) simplify() {
+	// TODO: Use Euclidean Algoritim for finding GCD to divide num and denom
+	if self.denominator == 0 {
+		return
+	}
 
-	if self.denominator != 0 && self.numerator%self.denominator == 0 {
+	if self.numerator%self.denominator == 0 {
 		self.numerator /= self.denominator
 		self.denominator = 1
 	}
-}
-
-// Multiplication of fraction objects
-func (self Fraction) mul(other Fraction) Fraction {
-	return Fraction{
-		numerator:   self.numerator * other.numerator,
-		denominator: self.denominator * other.denominator,
+	greatest_divisor := gcd(self.numerator, self.denominator)
+	if greatest_divisor > 1 {
+		self.numerator /= greatest_divisor
+		self.denominator /= greatest_divisor
 	}
 }
 
-// Multiply a fraction by an integer
-func (self Fraction) mulInt(integer int) Fraction {
-	return Fraction{
-		numerator:   self.numerator * integer,
-		denominator: self.denominator * integer,
+func gcd(a, b int) int {
+	for b != 0 {
+		t := b
+		b = a % b
+		a = t
 	}
+	return a
 }
 
 // Adding two fractions together
@@ -54,6 +58,39 @@ func (self Fraction) addInt(integer int) Fraction {
 	}
 }
 
+// Multiplication of fraction objects
+func (self Fraction) mul(other Fraction) Fraction {
+	return Fraction{
+		numerator:   self.numerator * other.numerator,
+		denominator: self.denominator * other.denominator,
+	}
+}
+
+// Multiply a fraction by an integer
+func (self Fraction) mulInt(integer int) Fraction {
+	return Fraction{
+		numerator:   self.numerator * integer,
+		denominator: self.denominator * integer,
+	}
+}
+
+// Division of fractions
+func (self Fraction) div(other Fraction) Fraction {
+	return Fraction{
+		numerator:   self.numerator * other.denominator,
+		denominator: self.denominator * other.numerator,
+	}
+}
+
+func (self Fraction) divInt(integer int) Fraction {
+	return Fraction{
+		numerator:   self.numerator,
+		denominator: self.denominator * integer,
+	}
+}
+
+// The folowing functions are for getting the value of the fraction in
+// decimal or rounded to an integer
 func (self Fraction) intVal() int {
 	return self.numerator / self.denominator
 }
