@@ -9,6 +9,20 @@ type Fraction struct {
 	denominator int
 }
 
+func NewFrac(num, denom int) Fraction {
+	return Fraction{
+		numerator:   num,
+		denominator: denom,
+	}
+}
+
+func NewIFrac(integer int) Fraction {
+	return Fraction{
+		numerator:   integer,
+		denominator: 1,
+	}
+}
+
 // This method operates on a struct instance and modifies it attempting to
 // put it in to a simpler/reduced form
 func (self *Fraction) simplify() {
@@ -66,6 +80,12 @@ func (self Fraction) mul(other Fraction) Fraction {
 	}
 }
 
+// In-place multiply (similar to *=)
+func (self *Fraction) imul(other Fraction) {
+	self.numerator *= other.numerator
+	self.denominator *= other.denominator
+}
+
 // Multiply a fraction by an integer
 func (self Fraction) mulInt(integer int) Fraction {
 	return Fraction{
@@ -86,6 +106,13 @@ func (self Fraction) divInt(integer int) Fraction {
 	return Fraction{
 		numerator:   self.numerator,
 		denominator: self.denominator * integer,
+	}
+}
+
+func (self Fraction) inv() Fraction {
+	return Fraction{
+		numerator:   self.denominator,
+		denominator: self.numerator,
 	}
 }
 
