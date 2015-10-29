@@ -64,6 +64,16 @@ func (self Fraction) add(other Fraction) Fraction {
 	}
 }
 
+func (self *Fraction) iadd(other Fraction) {
+	// TODO: could potentiallly use a math.Min(denominators) and % operator
+	// to only need to multiply one fraction before adding (maybe faster?)
+	new_self := self.mulInt(other.denominator)
+	new_other := other.mulInt(self.denominator)
+
+	self.numerator = new_self.numerator + new_other.numerator
+	self.denominator = new_self.denominator
+}
+
 // Adding an integer to a fraction
 func (self Fraction) addInt(integer int) Fraction {
 	return Fraction{
@@ -90,7 +100,7 @@ func (self *Fraction) imul(other Fraction) {
 func (self Fraction) mulInt(integer int) Fraction {
 	return Fraction{
 		numerator:   self.numerator * integer,
-		denominator: self.denominator * integer,
+		denominator: self.denominator,
 	}
 }
 
