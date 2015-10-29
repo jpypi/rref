@@ -61,7 +61,7 @@ func (self Fraction) add(other Fraction) Fraction {
 
 	return Fraction{
 		numerator:   new_self.numerator + new_other.numerator,
-		denominator: new_self.denominator,
+		denominator: self.denominator * other.denominator,
 	}
 }
 
@@ -72,7 +72,7 @@ func (self *Fraction) iadd(other Fraction) {
 	new_other := other.mulInt(self.denominator)
 
 	self.numerator = new_self.numerator + new_other.numerator
-	self.denominator = new_self.denominator
+	self.denominator = self.denominator * other.denominator
 }
 
 // Adding an integer to a fraction
@@ -121,6 +121,12 @@ func (self Fraction) divInt(integer int) Fraction {
 }
 
 func (self Fraction) inv() Fraction {
+	if self.numerator < 0 {
+		return Fraction{
+			numerator:   -self.denominator,
+			denominator: -self.numerator,
+		}
+	}
 	return Fraction{
 		numerator:   self.denominator,
 		denominator: self.numerator,
