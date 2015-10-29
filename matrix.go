@@ -14,12 +14,14 @@ type Matrix struct {
 func newMatrix(rows, cols int) Matrix {
 	var m Matrix
 	m.matrix = make([][]Fraction, rows)
-	m.rows = rows
 
+	m.rows = rows
+	m.cols = cols
+
+	// Initialize each row with `cols` number of columns
 	for i, _ := range m.matrix {
 		m.matrix[i] = make([]Fraction, cols)
 	}
-	m.cols = cols
 
 	return m
 }
@@ -36,7 +38,7 @@ func (m Matrix) rref() Matrix {
 		// Make sure a pivot was actually found
 		if pivot_point < m.cols {
 
-			// Find the inverse (k*x = 1) [Basically, make first element 1.]
+			// Find the inverse (k*x = 1) [Basically, make pivot == 1.]
 			inv := row[pivot_point].inv()
 
 			// Multiply entire row times the inverse that was found
@@ -44,13 +46,15 @@ func (m Matrix) rref() Matrix {
 				m.matrix[r][c] = m.matrix[r][c].mul(inv)
 			}
 
-			// TODO: Work back upwards to clear numbers above the pivot
-			/*
-				for i := r - 1; i >= 0; i -= 1 {
-					m.matrix[i][r] = NewIFrac(0)
+			// Work back upwards to clear numbers above the pivot
+			for above_r := r - 1; above_r >= 0; above_r -= 1 {
+				sub_val := m.matrix[above_r][pivot_point].mulInt(-1)
+				for col := pivot_point; col < m.cols; col += 1 {
+					m.matrix[above_r][col] = m.matrix[above_r][col].add(m.matrix[r][col].mul(sub_val))
 				}
-			*/
+			}
 
+			// Clear below pivot
 			for below_r := r + 1; below_r < m.rows; below_r += 1 {
 				sub_val := m.matrix[below_r][pivot_point].mulInt(-1)
 				for i := pivot_point; i < m.cols; i += 1 {
