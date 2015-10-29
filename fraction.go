@@ -26,7 +26,8 @@ func NewIFrac(integer int) Fraction {
 // This method operates on a struct instance and modifies it attempting to
 // put it in to a simpler/reduced form
 func (self *Fraction) simplify() {
-	// TODO: Use Euclidean Algoritim for finding GCD to divide num and denom
+	// TODO: Use Euclidean algoritim for finding GCD to divide num and denom
+	// NOTE: Probably use Gabriel Lamé's version
 	if self.denominator == 0 {
 		return
 	}
