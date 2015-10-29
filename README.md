@@ -1,6 +1,12 @@
-#Reduced Row Echelon Form
+# Go Reduced Row Echelon Form
 
-This is my first actual use of Go (not just messing around) and will hopefully eventually transform matricies into RREF.
+This is just an exercise in writing in Go and also a linear algebra exercise in
+implementing [Gauss-Jordan Elimination](https://en.wikipedia.org/wiki/Gaussian_elimination)
+since it is so very important/useful.
+
+# TODO
+
+- Finish text-based user interface so it's more useful/easier to use
 
 # License
 
