@@ -94,8 +94,5 @@ func main() {
 		}
 	}
 
-	if rows == cols {
-		m = m.rref()
-	}
-	fmt.Println(m)
+	fmt.Println(m.rref())
 }
