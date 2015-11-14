@@ -50,7 +50,8 @@ func (m Matrix) rref() Matrix {
 			for above_r := r - 1; above_r >= 0; above_r -= 1 {
 				sub_val := m.matrix[above_r][pivot_point].mulInt(-1)
 				for col := pivot_point; col < m.cols; col += 1 {
-					m.matrix[above_r][col] = m.matrix[above_r][col].add(m.matrix[r][col].mul(sub_val))
+					m.matrix[above_r][col] = m.matrix[above_r][col].add(
+						m.matrix[r][col].mul(sub_val))
 				}
 			}
 
@@ -58,7 +59,8 @@ func (m Matrix) rref() Matrix {
 			for below_r := r + 1; below_r < m.rows; below_r += 1 {
 				sub_val := m.matrix[below_r][pivot_point].mulInt(-1)
 				for i := pivot_point; i < m.cols; i += 1 {
-					m.matrix[below_r][i] = m.matrix[below_r][i].add(m.matrix[r][i].mul(sub_val))
+					m.matrix[below_r][i] = m.matrix[below_r][i].add(
+						m.matrix[r][i].mul(sub_val))
 				}
 			}
 		}
@@ -81,6 +83,7 @@ func (m Matrix) mulRow(row int, value Fraction) []Fraction {
 	return m.matrix[row]
 }
 
+// Add one row of the matrix to another
 func (m *Matrix) rowAdd(src, dest int) {
 	for i, value := range m.matrix[src] {
 		m.matrix[dest][i].iadd(value)
