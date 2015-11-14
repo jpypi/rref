@@ -6,7 +6,11 @@ since it is so very important/useful.
 
 # TODO
 
-- Finish text-based user interface so it's more useful/easier to use
+- Fix rows not being put in proper order for rref
+    e.g. Fix:
+    |1|0|0|
+    |0|0|1|
+    |0|1|0|
 
 # License
 
