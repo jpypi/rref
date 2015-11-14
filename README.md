@@ -7,10 +7,19 @@ since it is so very important/useful.
 # TODO
 
 - Fix rows not being put in proper order for rref
-    e.g. Fix:
-    |1|0|0|
-    |0|0|1|
-    |0|1|0|
+
+    <table>
+        <tr>
+            <td>1</td><td>0</td><td>0</td>
+        </tr>
+        <tr>
+            <td>0</td><td>0</td><td>1</td>
+        </tr>
+        <tr>
+            <td>0</td><td>1</td><td>0</td>
+        </tr>
+    </table>
+
 
 # License
 
